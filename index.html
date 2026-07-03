@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#170e08" />
+  <title>Imperium Advisor</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Forum&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="grain"></div>
+  <header class="topbar">
+    <div class="brand"><span class="eagle">◆</span><div><small>IMPERIVM ROMANVM</small><strong>IMPERIUM ADVISOR</strong></div></div>
+    <div class="year"><button id="prevYear" aria-label="Предыдущий год">‹</button><span><small>ANNO DOMINI</small><b id="year">117</b> н. э.</span><button id="nextYear" aria-label="Следующий год">›</button></div>
+    <div class="metrics">
+      <div><small>КАЗНА</small><b>₯ <span id="treasury">84 720</span></b><i class="up">+1 240</i></div>
+      <div><small>НАСЕЛЕНИЕ</small><b>58,3 млн</b><i class="up">+0,6%</i></div>
+      <div><small>ЛЕГИОНЫ</small><b>28</b><i>из 30</i></div>
+      <div class="stability"><small>СТАБИЛЬНОСТЬ</small><b>78%</b><span><i></i></span></div>
+    </div>
+    <button class="emperor"><span>SPQR</span><div><small>ИМПЕРАТОР</small><b>ТРАЯН</b></div></button>
+  </header>
+
+  <main class="workspace">
+    <section class="map-panel">
+      <div class="map-toolbar">
+        <div class="layers" id="layers">
+          <button class="active" data-layer="political">Политика</button><button data-layer="economy">Экономика</button><button data-layer="population">Население</button><button data-layer="trade">Торговля</button><button data-layer="military">Войска</button><button data-layer="threats">Угрозы <em>3</em></button>
+        </div>
+        <button class="legend-toggle" id="legendToggle">☷ Легенда</button>
+      </div>
+      <div class="map-viewport" id="mapViewport">
+        <div class="map" id="map">
+          <img src="assets/roman-provinces-117-ru.png" alt="Провинции Римской империи в 117 году" draggable="false" />
+          <svg class="provinces detailed" id="provinces" viewBox="0 0 1280 940" preserveAspectRatio="none" aria-label="Провинции Римской империи">
+            <g class="province" data-province="britannia"><polygon points="285,170 350,170 390,270 330,290 285,250"/><text x="335" y="235">БРИТАНИЯ</text></g>
+            <g class="province" data-province="belgica"><polygon points="350,285 430,280 455,355 390,370 350,330"/><text x="400" y="325">БЕЛГИКА</text></g>
+            <g class="province" data-province="lugdunensis"><polygon points="280,315 365,335 390,400 345,455 280,410 255,355"/><text x="325" y="380">ЛУГДУНСКАЯ</text></g>
+            <g class="province" data-province="aquitania"><polygon points="240,395 345,455 330,515 250,525 205,475"/><text x="275" y="470">АКВИТАНИЯ</text></g>
+            <g class="province" data-province="narbonensis"><polygon points="330,420 440,405 455,475 395,500 330,515"/><text x="393" y="460">НАРБОНСКАЯ</text></g>
+            <g class="province" data-province="germania_inferior"><polygon points="420,280 455,270 480,355 450,385 430,345"/><text x="453" y="325">ГЕРМ. НИЖ.</text></g>
+            <g class="province" data-province="germania_superior"><polygon points="430,355 485,340 500,420 455,440"/><text x="468" y="392">ГЕРМ. ВЕРХ.</text></g>
+            <g class="province" data-province="raetia"><polygon points="450,405 535,405 555,445 500,465 455,440"/><text x="505" y="430">РЕЦИЯ</text></g>
+            <g class="province" data-province="noricum"><polygon points="535,405 610,405 620,455 555,460"/><text x="575" y="435">НОРИК</text></g>
+            <g class="province" data-province="pannonia_superior"><polygon points="610,400 670,405 690,465 625,470"/><text x="647" y="438">ПАННОНИЯ В.</text></g>
+            <g class="province" data-province="pannonia_inferior"><polygon points="670,405 735,415 755,470 690,465"/><text x="712" y="445">ПАННОНИЯ Н.</text></g>
+            <g class="province" data-province="dacia"><polygon points="675,360 790,345 825,435 755,470 700,435"/><text x="755" y="405">ДАКИЯ</text></g>
+            <g class="province" data-province="dalmatia"><polygon points="580,455 690,465 690,535 625,550 570,500"/><text x="635" y="500">ДАЛМАЦИЯ</text></g>
+            <g class="province" data-province="moesia_superior"><polygon points="690,465 775,465 790,515 710,525"/><text x="742" y="495">МЁЗИЯ В.</text></g>
+            <g class="province" data-province="moesia_inferior"><polygon points="775,445 870,450 900,505 790,515 775,465"/><text x="835" y="480">МЁЗИЯ Н.</text></g>
+            <g class="province" data-province="thracia"><polygon points="790,515 900,505 900,565 825,585"/><text x="850" y="545">ФРАКИЯ</text></g>
+            <g class="province" data-province="macedonia"><polygon points="690,525 790,515 825,585 745,600 690,570"/><text x="755" y="560">МАКЕДОНИЯ</text></g>
+            <g class="province" data-province="epirus"><polygon points="650,535 705,555 730,620 680,625 645,585"/><text x="688" y="585">ЭПИР</text></g>
+            <g class="province" data-province="achaia"><polygon points="705,585 780,595 790,675 730,665"/><text x="750" y="630">АХАЙЯ</text></g>
+            <g class="province" data-province="italia"><polygon points="455,410 520,430 555,520 620,585 590,625 530,565 500,485 450,455"/><text x="520" y="520">ИТАЛИЯ</text></g>
+            <g class="province" data-province="lusitania"><polygon points="75,490 145,475 175,560 125,620 80,590"/><text x="120" y="545">ЛУЗИТАНИЯ</text></g>
+            <g class="province" data-province="baetica"><polygon points="125,575 230,570 270,630 180,650 120,620"/><text x="190" y="610">БЕТИКА</text></g>
+            <g class="province" data-province="tarraconensis"><polygon points="145,475 275,455 330,515 300,600 230,570 175,560"/><text x="235" y="525">ТАРРАКОНСКАЯ</text></g>
+            <g class="province" data-province="mauretania_tingitana"><polygon points="35,680 145,650 180,700 120,740 45,725"/><text x="103" y="700">МАВРЕТ. ТИНГ.</text></g>
+            <g class="province" data-province="mauretania_caesariensis"><polygon points="145,650 330,645 365,715 180,700"/><text x="255" y="685">МАВРЕТ. ЦЕЗ.</text></g>
+            <g class="province" data-province="africa"><polygon points="330,645 470,650 535,735 420,750 365,715"/><text x="430" y="700">АФРИКА</text></g>
+            <g class="province" data-province="sicilia"><polygon points="505,620 570,630 555,690 500,675"/><text x="535" y="660">СИЦИЛИЯ</text></g>
+            <g class="province" data-province="sardinia"><polygon points="430,545 475,545 470,640 430,625"/><text x="450" y="590">САРДИНИЯ</text></g>
+            <g class="province" data-province="cyrenaica"><polygon points="650,770 865,780 900,865 660,850"/><text x="770" y="825">КИРЕНАИКА</text></g>
+            <g class="province" data-province="creta"><polygon points="730,700 830,700 820,735 740,735"/><text x="780" y="720">КРИТ</text></g>
+            <g class="province" data-province="bithynia"><polygon points="870,500 980,475 1020,530 925,565"/><text x="945" y="520">ВИФИНИЯ И ПОНТ</text></g>
+            <g class="province" data-province="asia"><polygon points="820,575 925,555 965,650 860,680 805,630"/><text x="885" y="620">АЗИЯ</text></g>
+            <g class="province" data-province="galatia"><polygon points="925,555 1035,540 1080,620 965,650"/><text x="1000" y="595">ГАЛАТИЯ</text></g>
+            <g class="province" data-province="lycia"><polygon points="860,650 970,640 980,700 890,710"/><text x="925" y="680">ЛИКИЯ</text></g>
+            <g class="province" data-province="cilicia"><polygon points="970,640 1080,620 1110,680 1010,700"/><text x="1040" y="665">КИЛИКИЯ</text></g>
+            <g class="province" data-province="cappadocia"><polygon points="1020,520 1130,500 1175,600 1080,620"/><text x="1095" y="565">КАППАДОКИЯ</text></g>
+            <g class="province" data-province="syria"><polygon points="1080,620 1190,600 1225,705 1110,700"/><text x="1150" y="660">СИРИЯ</text></g>
+            <g class="province" data-province="mesopotamia"><polygon points="1175,560 1260,585 1265,730 1215,700 1190,600"/><text x="1225" y="645">МЕСОПОТАМИЯ</text></g>
+            <g class="province" data-province="iudaea"><polygon points="1085,700 1140,695 1145,790 1090,810"/><text x="1115" y="750">ИУДЕЯ</text></g>
+            <g class="province" data-province="arabia"><polygon points="1140,700 1220,720 1185,850 1115,815"/><text x="1170" y="780">АРАВИЯ</text></g>
+            <g class="province" data-province="aegyptus"><polygon points="900,770 1085,770 1115,900 940,900"/><text x="1000" y="845">ЕГИПЕТ</text></g>
+            <g class="province" data-province="cyprus"><polygon points="1010,710 1070,710 1070,740 1015,745"/><text x="1040" y="730">КИПР</text></g>
+          </svg>
+          <svg class="routes" viewBox="0 0 1280 940" preserveAspectRatio="none"><path d="M535 385 Q690 500 845 470 T1120 560"/><path d="M435 610 Q660 650 780 800"/></svg>
+          <button class="city capital" style="left:40.7%;top:58.8%" data-place="rome"><span></span><label>ROMA</label></button>
+          <button class="city" style="left:63.5%;top:71.3%" data-place="athens"><span></span><label>ATHENAE</label></button>
+          <button class="city major" style="left:70%;top:87.5%" data-place="alexandria"><span></span><label>ALEXANDRIA</label></button>
+          <button class="city major" style="left:78.5%;top:72%" data-place="antioch"><span></span><label>ANTIOCHIA</label></button>
+          <button class="city" style="left:23.8%;top:58.3%" data-place="tarraco"><span></span><label>TARRACO</label></button>
+          <button class="city major" style="left:43.2%;top:73%" data-place="syracuse"><span></span><label>SYRACVSAE</label></button>
+          <button class="city major" style="left:36.2%;top:72.5%" data-place="carthage"><span></span><label>CARTHAGO</label></button>
+          <button class="legion" style="left:27%;top:24%" data-legion="VI VICTRIX" data-commander="Авл Платорий Непот" title="Британия"><i>♜</i><b>VI</b></button>
+          <button class="legion" style="left:35%;top:33%" data-legion="XXX VLPIA" data-commander="Марк Юний Гомулл" title="Рейн"><i>♜</i><b>XXX</b></button>
+          <button class="legion" style="left:38%;top:37%" data-legion="I MINERVIA" data-commander="Гай Юлий Север" title="Рейн"><i>♜</i><b>I</b></button>
+          <button class="legion" style="left:40%;top:41%" data-legion="XXII PRIMIGENIA" data-commander="Луций Росций Элиан" title="Рейн"><i>♜</i><b>XXII</b></button>
+          <button class="legion" style="left:43%;top:44%" data-legion="VIII AVGVSTA" data-commander="Квинт Помпей Фалькон" title="Рейн"><i>♜</i><b>VIII</b></button>
+          <button class="legion" style="left:51%;top:43%" data-legion="XIIII GEMINA" data-commander="Тит Юлий Максим" title="Дунай"><i>♜</i><b>XIV</b></button>
+          <button class="legion" style="left:56%;top:45%" data-legion="X GEMINA" data-commander="Публий Элий Адриан" title="Дунай"><i>♜</i><b>X</b></button>
+          <button class="legion" style="left:61%;top:46%" data-legion="II ADIVTRIX" data-commander="Луций Катилий Север" title="Дунай"><i>♜</i><b>II</b></button>
+          <button class="legion" style="left:66%;top:48%" data-legion="V MACEDONICA" data-commander="Гней Миниций Фаустин" title="Дунай"><i>♜</i><b>V</b></button>
+          <button class="legion" style="left:82%;top:60%" data-legion="III GALLICA" data-commander="Авл Корнелий Пальма" title="Сирия"><i>♜</i><b>III</b></button>
+          <button class="legion" style="left:85%;top:64%" data-legion="VI FERRATA" data-commander="Гай Бруттий Презент" title="Сирия"><i>♜</i><b>VI</b></button>
+          <button class="legion" style="left:88%;top:68%" data-legion="X FRETENSIS" data-commander="Луций Квиет" title="Сирия"><i>♜</i><b>X</b></button>
+          <button class="legion" style="left:91%;top:63%" data-legion="XVI FLAVIA" data-commander="Квинт Марций Турбон" title="Сирия"><i>♜</i><b>XVI</b></button>
+          <div class="threat parthia" style="left:96%;top:61%"><span>!</span><label>ПАРФИЯ · ИРАН</label></div>
+          <div class="map-card" id="mapCard"></div>
+        </div>
+        <div class="map-help">Потяните карту — перемещение · Колесо — масштаб</div><div class="zoom"><button id="zoomIn" title="Увеличить">+</button><button id="zoomOut" title="Уменьшить">−</button><button id="zoomReset" title="Показать всю карту">ВСЯ</button></div>
+        <div class="compass"><b>N</b><span>✥</span></div>
+        <div class="legend" id="legend"><b>УСЛОВНЫЕ ЗНАКИ</b><span><i class="province-key"></i> Провинция</span><span><i class="dot gold"></i> Столица</span><span><i class="dot burgundy"></i> Город</span><span>♜ Легион</span><span><i class="line"></i> Торговый путь</span></div>
+      </div>
+      <div class="status-ribbon"><span>◈ Pax Romana</span><p><b>Империя процветает.</b> Торговые пути безопасны, однако на восточных рубежах растёт напряжение.</p><time>III день до календ</time></div>
+    </section>
+
+    <aside class="advisor">
+      <div class="advisor-head"><div class="bust">♙</div><div><small>CONSILIVM PRINCIPIS</small><h2>ИМПЕРСКИЙ СОВЕТНИК</h2><span><i></i> Советник всегда на связи</span></div></div>
+      <div class="messages" id="messages">
+        <div class="message advisor-msg"><small>СОВЕТНИК · СЕГОДНЯ</small><p>Аве, император. Империя стабильна, но наместник Сирии сообщает о передвижении парфянских всадников у восточной границы.</p><div class="brief"><b>⚠ ТРЕБУЕТ ВНИМАНИЯ</b><span>Восточные провинции</span><p>Риск нападения: <strong>средний</strong></p></div></div>
+      </div>
+      <div class="suggestions"><button>Укрепить восточную границу</button><button>Проверить состояние легионов</button><button>Развить торговлю</button></div>
+      <form class="advisor-input" id="advisorForm"><textarea id="advisorText" placeholder="Опишите ситуацию или задайте вопрос советнику…" maxlength="500"></textarea><div><small><span id="count">0</span>/500</small><button type="submit">Отправить <span>➤</span></button></div></form>
+    </aside>
+  </main>
+
+  <nav class="bottom-nav" id="bottomNav">
+    <button class="active" data-section="Карта"><span>⌾</span>Карта</button><button data-section="Легионы"><span>♜</span>Легионы</button><button data-section="Провинции"><span>◇</span>Провинции</button><button data-section="Экономика"><span>◉</span>Экономика</button><button data-section="Торговля"><span>⚖</span>Торговля</button><button data-section="Строительство"><span>⌂</span>Строительство</button><button data-section="Дипломатия"><span>♛</span>Дипломатия</button><button data-section="Разведка"><span>◈</span>Разведка</button>
+  </nav>
+  <dialog id="sectionDialog"><button class="close">×</button><small>IMPERIVM ROMANVM</small><h2 id="dialogTitle"></h2><div id="dialogContent"></div></dialog>
+  <script src="app.js"></script>
+</body>
+</html>
