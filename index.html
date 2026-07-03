@@ -27,10 +27,10 @@
   <main class="workspace">
     <section class="map-panel">
       <div class="map-toolbar">
-        <div class="layers" id="layers">
+        <div class="layers" id="layers" role="tablist" aria-label="Режим карты">
           <button class="active" data-layer="political">Политика</button><button data-layer="economy">Экономика</button><button data-layer="population">Население</button><button data-layer="trade">Торговля</button><button data-layer="military">Войска</button><button data-layer="threats">Угрозы <em>3</em></button>
         </div>
-        <button class="legend-toggle" id="legendToggle">☷ Легенда</button>
+        <span class="layer-caption" id="layerCaption">Политическая карта</span><button class="legend-toggle" id="legendToggle">☷ Легенда</button>
       </div>
       <div class="map-viewport" id="mapViewport">
         <div class="map" id="map">
