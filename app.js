@@ -14,7 +14,18 @@ viewport.onpointerdown=e=>{if(e.target.closest('button'))return;if(scale<=1){sca
 viewport.onpointermove=e=>{if(!dragging)return;x=e.clientX-sx;y=e.clientY-sy;setTransform()};
 viewport.onpointerup=viewport.onpointercancel=()=>{dragging=false;viewport.classList.remove('dragging')};
 setTransform();
-$$('#layers button').forEach(btn=>btn.onclick=()=>{$$('#layers button').forEach(b=>b.classList.remove('active'));btn.classList.add('active');map.className='map layer-'+btn.dataset.layer});
+const layerOverlay=$('#layerOverlay');
+const provinceStats=[
+  {n:'Британия',x:27,y:24,p:'2,1 млн',e:'+1 180 ₯',t:'Олово'}, {n:'Галлия',x:31,y:41,p:'7,4 млн',e:'+4 620 ₯',t:'Вино'},
+  {n:'Испания',x:19,y:57,p:'5,2 млн',e:'+3 280 ₯',t:'Серебро'}, {n:'Италия',x:43,y:57,p:'7,0 млн',e:'+8 940 ₯',t:'Ремесло'},
+  {n:'Паннония',x:56,y:47,p:'1,7 млн',e:'+960 ₯',t:'Железо'}, {n:'Дакия',x:62,y:41,p:'1,0 млн',e:'+2 440 ₯',t:'Золото'},
+  {n:'Ахайя',x:61,y:67,p:'2,3 млн',e:'+1 720 ₯',t:'Мрамор'}, {n:'Азия',x:71,y:65,p:'6,0 млн',e:'+5 380 ₯',t:'Шёлк'},
+  {n:'Сирия',x:84,y:69,p:'4,7 млн',e:'+4 110 ₯',t:'Пряности'}, {n:'Египет',x:73,y:86,p:'5,5 млн',e:'+6 750 ₯',t:'Зерно'},
+  {n:'Африка',x:38,y:75,p:'3,4 млн',e:'+3 960 ₯',t:'Масло'}
+];
+const renderLayer=layer=>{map.className='map layer-'+layer;layerOverlay.innerHTML='';if(layer==='population')layerOverlay.innerHTML=provinceStats.map(s=>`<button class="data-marker population-marker" style="left:${s.x}%;top:${s.y}%"><small>${s.n}</small><b>♟ ${s.p}</b></button>`).join('');if(layer==='economy')layerOverlay.innerHTML=provinceStats.map(s=>`<button class="data-marker economy-marker" style="left:${s.x}%;top:${s.y}%"><small>${s.n}</small><b>${s.e}</b></button>`).join('');if(layer==='trade')layerOverlay.innerHTML=provinceStats.filter((_,i)=>[2,3,6,7,8,9,10].includes(i)).map(s=>`<button class="data-marker trade-marker" style="left:${s.x}%;top:${s.y}%"><small>${s.n}</small><b>⚖ ${s.t}</b></button>`).join('')};
+const activateLayer=layer=>{$$('#layers button').forEach(b=>b.classList.toggle('active',b.dataset.layer===layer));renderLayer(layer)};
+$$('#layers button').forEach(btn=>btn.onclick=()=>activateLayer(btn.dataset.layer));activateLayer('political');
 $('#legendToggle').onclick=()=>$('#legend').classList.toggle('hidden');
 const places={rome:['ROMA','Италия · столица империи','Население: 1 000 000','Порядок: 92%'],athens:['ATHENAE','Провинция Ахайя','Население: 150 000','Культура: процветает'],alexandria:['ALEXANDRIA','Египет · имперский мегаполис','Население: 500 000','Флот: 36 кораблей'],antioch:['ANTIOCHIA','Сирия · восточная столица','Население: 400 000','Гарнизон: 8 400'],tarraco:['TARRACO','Тарраконская Испания','Доход: 3 280 ₯','Порядок: 86%'],syracuse:['SYRACVSAE','Сицилия · великий порт','Население: 120 000','Флот: 24 корабля'],carthage:['CARTHAGO','Африка Проконсульская','Население: 300 000','Поставки зерна: 91%']};
 const provinceData={
@@ -33,5 +44,5 @@ function send(text){if(!text.trim())return;messages.insertAdjacentHTML('beforeen
 $('#advisorForm').onsubmit=e=>{e.preventDefault();send(input.value);input.value='';input.oninput()};$$('.suggestions button').forEach(b=>b.onclick=()=>send(b.textContent));
 input.addEventListener('keydown',e=>{if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();$('#advisorForm').requestSubmit()}});scrollChat();
 const sectionData={Легионы:[['28','боеспособных легионов'],['82%','средняя мораль'],['76%','снабжение']],Провинции:[['42','провинции'],['78%','средний порядок'],['3','требуют внимания']],Экономика:[['84 720 ₯','казна'],['+1 240 ₯','месячный баланс'],['12%','торговый рост']],Торговля:[['17','активных маршрутов'],['94%','безопасность путей'],['8 430 ₯','доход']],Строительство:[['6','проектов'],['2','акведука'],['14 мес.','до завершения']],Дипломатия:[['7','союзников'],['2','напряжённых рубежа'],['61%','влияние']],Разведка:[['34','агента'],['3','новых донесения'],['Средний','уровень угрозы']],Карта:[['117','текущий год'],['42','провинции'],['Pax Romana','состояние']]};
-$$('#bottomNav button').forEach(b=>b.onclick=()=>{$$('#bottomNav button').forEach(x=>x.classList.remove('active'));b.classList.add('active');const d=sectionData[b.dataset.section];$('#dialogTitle').textContent=b.dataset.section.toUpperCase();$('#dialogContent').innerHTML=`<div class="summary-grid">${d.map(x=>`<div><b>${x[0]}</b><span>${x[1]}</span></div>`).join('')}</div><p>Подробный реестр подготовлен канцелярией. Выберите объект на карте или обратитесь к советнику для анализа.</p>`;$('#sectionDialog').showModal()});
+$$('#bottomNav button').forEach(b=>b.onclick=()=>{$$('#bottomNav button').forEach(x=>x.classList.remove('active'));b.classList.add('active');const direct={Карта:'political',Легионы:'military',Экономика:'economy',Торговля:'trade'}[b.dataset.section];if(direct){activateLayer(direct);return}const d=sectionData[b.dataset.section];$('#dialogTitle').textContent=b.dataset.section.toUpperCase();$('#dialogContent').innerHTML=`<div class="summary-grid">${d.map(x=>`<div><b>${x[0]}</b><span>${x[1]}</span></div>`).join('')}</div><p>Подробный реестр подготовлен канцелярией. Выберите объект на карте или обратитесь к советнику для анализа.</p>`;$('#sectionDialog').showModal()});
 $('.close').onclick=()=>$('#sectionDialog').close();
